@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if error_msg %}
+{{error_msg}}
+{% else %}
+<div class="panel panel-default">
+  <div class="panel-heading">已捕获<b>"{{ movie_info.name }}"</b>的下载链接</div>
+  <div class="panel-body">
+	<ul class="list-group">
+	{% for i in result %}
+	<li class="list-group-item list-group-item-success">{{ i.link }}</li>
+	{% endfor %}
+	</ul>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Movies</h1>
+{% if movies_list %}
+<table class="table">
+<thead><th>Name</th><th>Include Date</th><th>Hash</th></thead>
+{% for movie in movies_list %}
+<tr>
+<td><a href="get_movie_link?q={{ movie.hash }}">{{ movie.name }}</a></td>
+<td>{{ movie.include_date }}</td>
+<td>{{ movie.url }}</td>
+</tr>
+{% endfor%}
+{% else %}
+<h2> you got nothings </h2>
+{% endif %}
+{% endblock %}
