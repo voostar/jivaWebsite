@@ -94,6 +94,8 @@ def main():
         dl_lst = find_download_links(movie_url)
         for dl in dl_lst:
             db.add_download_link(movie_hash=i["hash"], movie_link=dl)
+    with open('/tmp/dy2018_worker_checkin', 'w') as f:
+        f.write("{}".format(datetime.datetime.now()))
 
 if __name__ == '__main__':
     main()
