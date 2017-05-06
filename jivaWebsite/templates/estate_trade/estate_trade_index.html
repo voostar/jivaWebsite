@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>商品房交易数据 <small>从2011年至今</small></h1>
+<div id="acreage_amount" style="width: 100%;height:400px;"></div>
+<div id="apartment_amount" style="width: 100%;height:400px;"></div>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('acreage_amount'));
+
+        // 指定图表的配置项和数据
+        var option = {
+        	color: ['#3398DB'],
+            title: {
+                text: '南宁市商品房交易数据:面积总计 by longzhiw'
+            },
+            tooltip: {},
+            legend: {
+                data:['面积㎡']
+            },
+            xAxis: {
+                data: ["青秀区","江南区","兴宁区","西乡塘区","良庆区","邕宁区"]
+            },
+            yAxis: {},
+            series: [{
+                name: '面积㎡',
+                type: 'bar',
+                data: [{{result.青秀区.acreage_amount}}, {{result.江南区.acreage_amount}}, {{result.兴宁区.acreage_amount}}, {{result.西乡塘区.acreage_amount}}, {{result.良庆区.acreage_amount}}, {{result.邕宁区.acreage_amount}}]
+            },]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('apartment_amount'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '南宁市商品房交易数据:套数总计 by longzhiw'
+            },
+            tooltip: {},
+            legend: {
+                data:['套数:间']
+            },
+            xAxis: {
+                data: ["青秀区","江南区","兴宁区","西乡塘区","良庆区","邕宁区"]
+            },
+            yAxis: {},
+            series: [{
+                name: '套数:间',
+                type: 'bar',
+                data: [{{result.青秀区.apartment_amount}}, {{result.江南区.apartment_amount}}, {{result.兴宁区.apartment_amount}}, {{result.西乡塘区.apartment_amount}}, {{result.良庆区.apartment_amount}}, {{result.邕宁区.apartment_amount}}]
+            },]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}<h1>商品房交易数据 <small>从2011年至今</small></h1>
+<p><a href="/estate_trade/trend?q=青秀区">青秀区</a> | <a href="/estate_trade/trend?q=江南区">江南区</a> | <a href="/estate_trade/trend?q=兴宁区">兴宁区</a> | <a href="/estate_trade/trend?q=良庆区">良庆区</a> | <a href="/estate_trade/trend?q=邕宁区">邕宁区</a> | <a href="/estate_trade/trend?q=西乡塘区">西乡塘区</a> | <a href="/estate_trade/trend_compare">全市对比</a></p>
+{% endblock %}
+
+{% block out_container %}
+{% if error_msg %}
+<p>{{ error_msg }}</p>
+{% else %}
+<div id="trend_acreage_amount_compare" style="width: 100%;height:800px;"></div>
+<script type="text/javascript">
+var myChart = echarts.init(document.getElementById('trend_acreage_amount_compare'));
+var date = [{% for d in date_list%}"{{d}}",{%endfor%}];
+option = {
+    title: {
+        text: '各城区30个交易日数据对比',
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['青秀区','江南区','兴宁区','良庆区','西乡塘区','邕宁区']
+    },
+    toolbox: {
+        show: true,
+        feature: {
+            magicType: {show: true, type: ['stack', 'tiled']},
+            saveAsImage: {show: true}
+        }
+    },
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: date,
+    },
+    yAxis: {
+        type: 'value'
+    },
+    series: [{
+        name: '青秀区',
+        type: 'line',
+        smooth: true,
+        data: [{% for d in data_dict.青秀区 %}{{d}}, {% endfor %}]
+    },
+    {
+        name: '江南区',
+        type: 'line',
+        smooth: true,
+        data: [{% for d in data_dict.江南区 %}{{d}}, {% endfor %}]
+    },
+    {
+        name: '兴宁区',
+        type: 'line',
+        smooth: true,
+        data: [{% for d in data_dict.兴宁区 %}{{d}}, {% endfor %}]
+    },
+    {
+        name: '良庆区',
+        type: 'line',
+        smooth: true,
+        data: [{% for d in data_dict.良庆区 %}{{d}}, {% endfor %}]
+    },
+    {
+        name: '西乡塘区',
+        type: 'line',
+        smooth: true,
+        data: [{% for d in data_dict.西乡塘区 %}{{d}}, {% endfor %}]
+    },
+    {
+        name: '邕宁区',
+        type: 'line',
+        smooth: true,
+        data: [{% for d in data_dict.邕宁区 %}{{d}}, {% endfor %}]
+    }]
+};
+myChart.setOption(option);
+</script>
+{% endif %}
+{% endblock %}

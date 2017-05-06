@@ -14,7 +14,8 @@
     <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-
+    <!-- echarts -->
+    <script type="text/javascript" src="{% static 'js/echarts.min.js' %}"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -29,6 +30,8 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a href="/movies">Movies</a></li>
+        <li><a href="/estate_trade">商品房交易总量</a></li>
+        <li><a href="/estate_trade/trend">商品房交易趋势</a></li>
       </ul>
       </div>
     </div>
@@ -36,5 +39,6 @@
   <div class="container">
   {% block content %}{% endblock %}
   </div>
+  {% block out_container %}{% endblock %}
   </body>
 </html>

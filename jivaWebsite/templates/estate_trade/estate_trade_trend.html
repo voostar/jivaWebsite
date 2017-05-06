@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% block content %}<h1>商品房交易数据 <small>从2011年至今</small></h1>
+<p><a href="/estate_trade/trend?q=青秀区">青秀区</a> | <a href="/estate_trade/trend?q=江南区">江南区</a> | <a href="/estate_trade/trend?q=兴宁区">兴宁区</a> | <a href="/estate_trade/trend?q=良庆区">良庆区</a> | <a href="/estate_trade/trend?q=邕宁区">邕宁区</a> | <a href="/estate_trade/trend?q=西乡塘区">西乡塘区</a> | <a href="/estate_trade/trend_compare">全市对比</a></p>
+{% endblock %}
+
+{% block out_container %}
+{% if error_msg %}
+<p>{{ error_msg }}</p>
+{% else %}
+<div id="trend_acreage_amount" style="width: 100%;height:800px;"></div>
+<!-- <div id="trend_apartment_amount" style="width: 100%;height:800px;"></div> -->
+<script type="text/javascript">
+var myChart = echarts.init(document.getElementById('trend_acreage_amount'));
+var date = [{% for d in date_list%}"{{d}}",{%endfor%}];
+var data = {{acreage_amount_data_list}};
+option = {
+    tooltip: {
+        trigger: 'axis',
+        position: function (pt) {
+            return [pt[0], '90%'];
+        }
+    },
+    title: {
+        left: 'center',
+        text: '{{district}} 交易面积',
+    },
+    toolbox: {
+        feature: {
+            dataZoom: {
+                yAxisIndex: 'none'
+            },
+            restore: {},
+            saveAsImage: {}
+        }
+    },
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: date
+    },
+    yAxis: {
+        type: 'value',
+        boundaryGap: [0, '100%']
+    },
+    dataZoom: [{
+        type: 'inside',
+        start: 0,
+        end: 10
+    }, {
+        start: 0,
+        end: 10,
+        handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+        handleSize: '80%',
+        handleStyle: {
+            color: '#fff',
+            shadowBlur: 3,
+            shadowColor: 'rgba(0, 0, 0, 0.6)',
+            shadowOffsetX: 2,
+            shadowOffsetY: 2
+        }
+    }],
+    series: [
+        {
+            name:'面积',
+            type:'line',
+            smooth:true,
+            symbol: 'none',
+            sampling: 'average',
+            itemStyle: {
+                normal: {
+                    color: 'rgb(255, 70, 131)'
+                }
+            },
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgb(255, 158, 68)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(255, 70, 131)'
+                    }])
+                }
+            },
+            data: data
+        }
+    ]
+};
+myChart.setOption(option);
+</script>
+<script type="text/javascript">
+var myChart = echarts.init(document.getElementById('trend_apartment_amount'));
+var date = [{% for d in date_list%}"{{d}}",{%endfor%}];
+var data = {{apartment_amount_data_list}};
+option = {
+    tooltip: {
+        trigger: 'axis',
+        position: function (pt) {
+            return [pt[0], '90%'];
+        }
+    },
+    title: {
+        left: 'center',
+        text: '{{district}} 交易套数',
+    },
+    toolbox: {
+        feature: {
+            dataZoom: {
+                yAxisIndex: 'none'
+            },
+            restore: {},
+            saveAsImage: {}
+        }
+    },
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: date
+    },
+    yAxis: {
+        type: 'value',
+        boundaryGap: [0, '100%']
+    },
+    dataZoom: [{
+        type: 'inside',
+        start: 0,
+        end: 10
+    }, {
+        start: 0,
+        end: 10,
+        handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+        handleSize: '80%',
+        handleStyle: {
+            color: '#fff',
+            shadowBlur: 3,
+            shadowColor: 'rgba(0, 0, 0, 0.6)',
+            shadowOffsetX: 2,
+            shadowOffsetY: 2
+        }
+    }],
+    series: [
+        {
+            name:'面积',
+            type:'line',
+            smooth:true,
+            symbol: 'none',
+            sampling: 'average',
+            itemStyle: {
+                normal: {
+                    color: 'rgb(255, 70, 131)'
+                }
+            },
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgb(255, 158, 68)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(255, 70, 131)'
+                    }])
+                }
+            },
+            data: data
+        }
+    ]
+};
+myChart.setOption(option);
+</script>
+{% endif %}
+{% endblock %}

@@ -1,5 +1,4 @@
-#!coding=utf-8
-
+#coding=utf-8
 import requests
 from bs4 import BeautifulSoup
 from copy import deepcopy
@@ -76,9 +75,6 @@ def wirte_into_db(trade_date_list):
 
 
 def main():
-    # write running time for checking
-    with open('/tmp/get_estate_trade_worker_checkin', 'w') as f:
-        f.write("{}".format(datetime.datetime.now()))
     # validated sources date is not already been store at database
     tradedata_day_list = get_validated_tradedata_day_list()
     if tradedata_day_list:
@@ -93,6 +89,8 @@ def main():
         result.append(get_trade_detail_by_usage(trade_date)) # requests data from sources 
     for i in result:
         wirte_into_db(i) # save results
-
+    # write running time for checking
+    with open('/tmp/get_estate_trade_worker_checkin', 'w') as f:
+        f.write("{}".format(datetime.datetime.now()))
 if __name__ == '__main__':
     main()
